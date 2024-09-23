@@ -62,7 +62,7 @@ $ dotnet add package StyleCop.Analyzers
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>	
   ➥<CodeAnalysisRuleSet>..\code-analysis.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>>
+  </PropertyGroup>
 . . .
 ```
 - Enable the built-in .NET 6 code analyzer settings and add additional settings like this:
