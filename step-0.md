@@ -80,7 +80,7 @@ $ dotnet add package StyleCop.Analyzers
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
         <NoWarn>SA1600,CS1591,SA1200,SA1633,SA1000</NoWarn>
         <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
-    </PropertyGroup>>
+    </PropertyGroup>
 
 . . .
 </Project>
