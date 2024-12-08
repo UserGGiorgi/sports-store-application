@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,22 @@ app.MapControllerRoute(
     name: "pagination",
     pattern: "Products/Page{productPage:int}",
     defaults: new { controller = "Home", Action = "Index", productPage = 1 });
+
+app.MapControllerRoute(
+     name: "categoryPage",
+     pattern: "{category}/Page{productPage:int}",
+     defaults: new { Controller = "Home", action = "Index" });
+
+app.MapControllerRoute(
+    name: "category",
+    pattern: "Products/{category}",
+    defaults: new { Controller = "Home", action = "Index", productPage = 1 });
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "/",
+    defaults: new { Controller = "Home", action = "Index" });
+
 app.MapDefaultControllerRoute();
 
 SeedData.EnsurePopulated(app);
