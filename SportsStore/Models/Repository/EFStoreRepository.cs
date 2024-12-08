@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class EFStoreRepository
+public class EFStoreRepository : IStoreRepository
 {
     private StoreDbContext context;
 
