@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddScoped<Cart>(SessionCart.GetCart);
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddDbContext<StoreDbContext>(opts =>
 {
