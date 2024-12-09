@@ -1,5 +1,15 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "font-awesome@6.7.1",
+      "destination": "wwwroot/lib/font-awesome"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@6.1.2",
+      "destination": "wwwroot/lib/font-awesome/"
+    }
+  ]
 }
