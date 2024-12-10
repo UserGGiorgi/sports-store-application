@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportsStore.Models;
 
 public class StoreDbContext : DbContext
 {
@@ -8,4 +9,6 @@ public class StoreDbContext : DbContext
     }
 
     public DbSet<Product> Products => this.Set<Product>();
+    
+    public DbSet<Order> Orders => this.Set<Order>();
 }

@@ -6,7 +6,7 @@
 
         public IReadOnlyList<CartLine> Lines { get { return this.lines; } }
 
-        public void AddItem(Product product, int quantity)
+        public virtual void AddItem(Product product, int quantity)
         {
             CartLine? line = this.lines.
                 Where(p => p.Product.ProductId == product.ProductId)
@@ -26,12 +26,12 @@
             }
         }
 
-        public void RemoveLine(Product product)
+        public virtual void RemoveLine(Product product)
             => this.lines.RemoveAll(l => l.Product.ProductId == product.ProductId);
 
         public decimal ComputeTotalValue()
             => this.lines.Sum(e => e.Product.Price * e.Quantity);
 
-        public void Clear() => this.lines.Clear();
+        public virtual void Clear() => this.lines.Clear();
     }
 }
