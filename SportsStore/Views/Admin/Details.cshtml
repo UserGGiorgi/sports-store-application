@@ -1,0 +1,12 @@
+﻿  @model SportsStore.Models.Product?
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<h3 class="bg-info text-white text-center p-1">Details</h3>
+
+<partial name="_ProductInfo" model="@Model" />
+
+<a class="btn btn-warning" asp-controller="Admin" asp-action="Edit" asp-route-productId="@Model?.ProductId">Edit</a>
+<a class="btn btn-secondary" asp-controller="Admin" asp-action="Products">Back</a>
