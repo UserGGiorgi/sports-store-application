@@ -14,6 +14,12 @@ namespace SportsStore.Controllers
 
         public int PageSize = 4;
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View();
+        }
+
         public ViewResult Index(string? category, int productPage = 1)
               => View(new ProductsListViewModel
               {
