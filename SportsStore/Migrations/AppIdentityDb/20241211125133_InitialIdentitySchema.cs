@@ -2,16 +2,18 @@
 
 #nullable disable
 
-namespace SportsStore.Migrations
+namespace SportsStore.Migrations.AppIdentityDb
 {
-    public partial class Orders : Migration
+    public partial class InitialIdentitySchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+
         }
     }
 }

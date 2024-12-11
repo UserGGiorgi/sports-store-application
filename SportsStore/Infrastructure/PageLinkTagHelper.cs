@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -10,6 +11,13 @@ namespace SportsStore.Infrastructure
     [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
+        private IUrlHelperFactory urlHelperFactory;
+
+        public PageLinkTagHelper(IUrlHelperFactory helperFactory)
+        {
+            this.urlHelperFactory = helperFactory;
+        }
+
         public string? PageRoute { get; set; }
 
         [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
@@ -22,13 +30,6 @@ namespace SportsStore.Infrastructure
         public string PageClassNormal { get; set; } = string.Empty;
 
         public string PageClassSelected { get; set; } = string.Empty;
-
-        private IUrlHelperFactory urlHelperFactory;
-
-        public PageLinkTagHelper(IUrlHelperFactory helperFactory)
-        {
-            this.urlHelperFactory = helperFactory;
-        }
 
         [ViewContext]
         [HtmlAttributeNotBound]
@@ -61,7 +62,7 @@ namespace SportsStore.Infrastructure
                             ? this.PageClassSelected : this.PageClassNormal);
                     }
 
-                    tag.InnerHtml.Append(i.ToString());
+                    tag.InnerHtml.Append(i.ToString(CultureInfo.CurrentCulture));
                     result.InnerHtml.AppendHtml(tag);
                 }
 

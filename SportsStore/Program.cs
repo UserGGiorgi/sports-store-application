@@ -12,14 +12,22 @@ builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddScoped<Cart>(SessionCart.GetCart);
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+// builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+// builder.Services.AddDbContext<StoreDbContext>(opts =>
+// {
+//    opts.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]);
+// });
 builder.Services.AddDbContext<StoreDbContext>(opts =>
 {
-     opts.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]);
- });
+    opts.UseSqlServer("Data Source=MYCOOLPC\\SQLEXPRESS;Initial Catalog=ForSportsStore;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+});
 
-builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
+// builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+    options.UseSqlServer("Data Source=MYCOOLPC\\SQLEXPRESS;Initial Catalog=Identity;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
 
 var app = builder.Build();

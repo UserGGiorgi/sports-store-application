@@ -12,12 +12,12 @@ namespace SportsStore.Controllers
         private IStoreRepository storeRepository;
         private IOrderRepository orderRepository;
 
+        public AdminController(IStoreRepository storeRepository, IOrderRepository orderRepository)
+            => (this.storeRepository, this.orderRepository) = (storeRepository, orderRepository);
+
         [Route("Details/{productId:int}")]
         public ViewResult Details(int productId)
             => this.View(this.storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
-
-        public AdminController(IStoreRepository storeRepository, IOrderRepository orderRepository)
-            => (this.storeRepository, this.orderRepository) = (storeRepository, orderRepository);
 
         [Route("Orders")]
         public ViewResult Orders() => this.View(this.orderRepository.Orders);
@@ -102,6 +102,7 @@ namespace SportsStore.Controllers
         public IActionResult DeleteProduct(int productId)
         {
             var product = this.storeRepository.Products.FirstOrDefault(p => p.ProductId == productId);
+            ArgumentNullException.ThrowIfNull(product);
             this.storeRepository.DeleteProduct(product);
             return this.RedirectToAction("Products");
         }

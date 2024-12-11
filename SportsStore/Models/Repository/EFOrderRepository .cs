@@ -17,6 +17,7 @@ namespace SportsStore.Models.Repository
 
         public void SaveOrder(Order order)
         {
+            ArgumentNullException.ThrowIfNull(order);
             this.context.AttachRange(order.Lines.Select(l => l.Product));
 
             if (order.OrderId == 0)
