@@ -5,6 +5,7 @@ namespace SportsStore.Controllers
 {
     public class HomeController : Controller
     {
+        public int PageSize = 4;
         private readonly IStoreRepository repository;
 
         public HomeController(IStoreRepository repository)
@@ -12,16 +13,14 @@ namespace SportsStore.Controllers
             this.repository = repository;
         }
 
-        public int PageSize = 4;
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View();
+            return this.View();
         }
 
         public ViewResult Index(string? category, int productPage = 1)
-              => View(new ProductsListViewModel
+              => this.View(new ProductsListViewModel
               {
                   Products = this.repository.Products
                 .Where(p => category == null || p.Category == category)

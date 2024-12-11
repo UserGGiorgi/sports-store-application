@@ -19,6 +19,5 @@ namespace SportsStore.Components
                .Distinct()
                .OrderBy(x => x));
         }
-
     }
 }

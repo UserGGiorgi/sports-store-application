@@ -4,7 +4,10 @@
     {
         private List<CartLine> lines = new List<CartLine>();
 
-        public IReadOnlyList<CartLine> Lines { get { return this.lines; } }
+        public IReadOnlyList<CartLine> Lines
+        {
+            get { return this.lines; }
+        }
 
         public virtual void AddItem(Product product, int quantity)
         {

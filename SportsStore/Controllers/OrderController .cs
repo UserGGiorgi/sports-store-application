@@ -16,25 +16,25 @@ namespace SportsStore.Controllers
             this.cart = cart;
         }
 
-        public ViewResult Checkout() => View(model: new Order());
+        public ViewResult Checkout() => this.View(model: new Order());
 
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
-            if (!cart.Lines.Any())
+            if (!this.cart.Lines.Any())
             {
-                ModelState.AddModelError(key: string.Empty, errorMessage: "Sorry, your cart is empty!");
+                this.ModelState.AddModelError(key: string.Empty, errorMessage: "Sorry, your cart is empty!");
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                order.Lines = cart.Lines.ToArray();
-                orderRepository.SaveOrder(order: order);
-                cart.Clear();
-                return View(viewName: "Completed", model: order.OrderId);
+                order.Lines = this.cart.Lines.ToArray();
+                this.orderRepository.SaveOrder(order: order);
+                this.cart.Clear();
+                return this.View(viewName: "Completed", model: order.OrderId);
             }
 
-            return View();
+            return this.View();
         }
     }
 }

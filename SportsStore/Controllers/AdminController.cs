@@ -14,7 +14,7 @@ namespace SportsStore.Controllers
 
         [Route("Details/{productId:int}")]
         public ViewResult Details(int productId)
-            => View(storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
+            => this.View(this.storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
 
         public AdminController(IStoreRepository storeRepository, IOrderRepository orderRepository)
             => (this.storeRepository, this.orderRepository) = (storeRepository, orderRepository);
@@ -58,52 +58,52 @@ namespace SportsStore.Controllers
         [Route("Products/Edit/{productId:long}")]
         public ViewResult Edit(int productId)
         {
-            return View(storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
+            return this.View(this.storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
         }
 
         [HttpPost]
         [Route("Products/Edit/{productId:long}")]
         public IActionResult Edit(Product product)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                storeRepository.SaveProduct(product);
-                return RedirectToAction("Products");
+                this.storeRepository.SaveProduct(product);
+                return this.RedirectToAction("Products");
             }
 
-            return View(product);
+            return this.View(product);
         }
 
         [Route("Products/Create")]
         public ViewResult Create()
         {
-            return View(new Product());
+            return this.View(new Product());
         }
 
         [HttpPost]
         [Route("Products/Create")]
         public IActionResult Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                storeRepository.SaveProduct(product);
-                return RedirectToAction("Products");
+                this.storeRepository.SaveProduct(product);
+                return this.RedirectToAction("Products");
             }
 
-            return View(product);
+            return this.View(product);
         }
 
         [Route("Products/Delete/{productId:long}")]
         public IActionResult Delete(int productId)
-            => View(storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
+            => this.View(this.storeRepository.Products.FirstOrDefault(p => p.ProductId == productId));
 
         [HttpPost]
         [Route("Products/Delete/{productId:long}")]
         public IActionResult DeleteProduct(int productId)
         {
-            var product = storeRepository.Products.FirstOrDefault(p => p.ProductId == productId);
-            storeRepository.DeleteProduct(product);
-            return RedirectToAction("Products");
+            var product = this.storeRepository.Products.FirstOrDefault(p => p.ProductId == productId);
+            this.storeRepository.DeleteProduct(product);
+            return this.RedirectToAction("Products");
         }
     }
 }

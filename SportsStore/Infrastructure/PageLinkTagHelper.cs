@@ -15,7 +15,7 @@ namespace SportsStore.Infrastructure
         [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
         public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
 
-        public bool PageClassesEnabled { get; set; } = false;
+        public bool PageClassesEnabled { get; set; }
 
         public string PageClass { get; set; } = string.Empty;
 
@@ -51,7 +51,8 @@ namespace SportsStore.Infrastructure
                     tag.Attributes[key: "href"] = urlHelper.Action(action: this.PageAction, values: this.PageUrlValues);
                     tag.Attributes[key: "href"] = urlHelper.RouteUrl(routeName: this.PageRoute, values: this.PageUrlValues);
 
-                    tag.Attributes["href"] = urlHelper.Action(this.PageAction,
+                    tag.Attributes["href"] = urlHelper.Action(
+                        this.PageAction,
                         new { productPage = i });
                     if (this.PageClassesEnabled)
                     {

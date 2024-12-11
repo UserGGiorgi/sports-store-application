@@ -2,7 +2,7 @@
 
 namespace SportsStore.Models
 {
-  public static class SeedData
+    public static class SeedData
     {
         public static void EnsurePopulated(IApplicationBuilder app)
         {
