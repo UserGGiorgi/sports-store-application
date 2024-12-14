@@ -1,51 +1,54 @@
 ﻿using System;
 using SportsStore.Models;
 
-public class EFStoreRepository : IStoreRepository
+namespace SportsStore.Models.Repository
 {
-    private StoreDbContext context;
-
-    public EFStoreRepository(StoreDbContext ctx)
+    public class EFStoreRepository : IStoreRepository
     {
-        this.context = ctx;
-    }
+        private readonly StoreDbContext context;
 
-    public IQueryable<Product> Products => this.context.Products;
-
-    public void CreateProduct(Product p)
-    {
-        ArgumentNullException.ThrowIfNull(p);
-        this.context.Add(p);
-        this.context.SaveChanges();
-    }
-
-    public void DeleteProduct(Product p)
-    {
-        ArgumentNullException.ThrowIfNull(p);
-        this.context.Remove(p);
-        this.context.SaveChanges();
-    }
-
-    public void SaveProduct(Product p)
-    {
-        ArgumentNullException.ThrowIfNull(p);
-        if (p.ProductId == 0)
+        public EFStoreRepository(StoreDbContext ctx)
         {
-            this.context.Products.Add(p);
+            this.context = ctx;
         }
-        else
-        {
-            Product? dbEntry = this.context.Products?.FirstOrDefault(p => p.ProductId == p.ProductId);
 
-            if (dbEntry != null)
+        public IQueryable<Product> Products => this.context.Products;
+
+        public void CreateProduct(Product p)
+        {
+            ArgumentNullException.ThrowIfNull(p);
+            this.context.Add(p);
+            this.context.SaveChanges();
+        }
+
+        public void DeleteProduct(Product p)
+        {
+            ArgumentNullException.ThrowIfNull(p);
+            this.context.Remove(p);
+            this.context.SaveChanges();
+        }
+
+        public void SaveProduct(Product p)
+        {
+            ArgumentNullException.ThrowIfNull(p);
+            if (p.ProductId == 0)
             {
-                dbEntry.Name = p.Name;
-                dbEntry.Description = p.Description;
-                dbEntry.Price = p.Price;
-                dbEntry.Category = p.Category;
+                this.context.Products.Add(p);
             }
-        }
+            else
+            {
+                Product? dbEntry = this.context.Products?.FirstOrDefault(pr => pr.ProductId == p.ProductId);
 
-        this.context.SaveChanges();
+                if (dbEntry != null)
+                {
+                    dbEntry.Name = p.Name;
+                    dbEntry.Description = p.Description;
+                    dbEntry.Price = p.Price;
+                    dbEntry.Category = p.Category;
+                }
+            }
+
+            this.context.SaveChanges();
+        }
     }
 }

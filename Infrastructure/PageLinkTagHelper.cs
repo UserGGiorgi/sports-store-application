@@ -11,7 +11,7 @@ namespace SportsStore.Infrastructure
     [HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
-        private IUrlHelperFactory urlHelperFactory;
+        private readonly IUrlHelperFactory urlHelperFactory;
 
         public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
@@ -41,6 +41,8 @@ namespace SportsStore.Infrastructure
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            ArgumentNullException.ThrowIfNull(output);
+
             if (this.ViewContext != null && this.PageModel != null)
             {
                 IUrlHelper urlHelper = this.urlHelperFactory.GetUrlHelper(this.ViewContext);
@@ -49,12 +51,8 @@ namespace SportsStore.Infrastructure
                 {
                     TagBuilder tag = new TagBuilder("a");
                     this.PageUrlValues[key: "productPage"] = i;
-                    tag.Attributes[key: "href"] = urlHelper.Action(action: this.PageAction, values: this.PageUrlValues);
-                    tag.Attributes[key: "href"] = urlHelper.RouteUrl(routeName: this.PageRoute, values: this.PageUrlValues);
+                    tag.Attributes["href"] = urlHelper.Action(this.PageAction, new { productPage = i });
 
-                    tag.Attributes["href"] = urlHelper.Action(
-                        this.PageAction,
-                        new { productPage = i });
                     if (this.PageClassesEnabled)
                     {
                         tag.AddCssClass(this.PageClass);

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportsStore.Infrastructure;
 using SportsStore.Models;
+using SportsStore.Models.Repository;
 using SportsStore.Models.ViewModels;
 
 namespace SportsStore.Controllers
 {
     public class CartController : Controller
     {
-        private IStoreRepository repository;
+        private readonly IStoreRepository repository;
 
         public CartController(IStoreRepository repository, Cart cart)
         {

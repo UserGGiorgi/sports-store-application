@@ -2,7 +2,7 @@
 {
   public class Cart
     {
-        private List<CartLine> lines = new List<CartLine>();
+        private readonly List<CartLine> lines = new List<CartLine>();
 
         public IReadOnlyList<CartLine> Lines
         {
@@ -11,9 +11,8 @@
 
         public virtual void AddItem(Product product, int quantity)
         {
-            CartLine? line = this.lines.
-                Where(p => p.Product.ProductId == product.ProductId)
-                .FirstOrDefault();
+            CartLine? line = this.lines
+                .FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line is null)
             {

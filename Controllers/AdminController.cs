@@ -9,8 +9,8 @@ namespace SportsStore.Controllers
     [Route("Admin")]
     public class AdminController : Controller
     {
-        private IStoreRepository storeRepository;
-        private IOrderRepository orderRepository;
+        private readonly IStoreRepository storeRepository;
+        private readonly IOrderRepository orderRepository;
 
         public AdminController(IStoreRepository storeRepository, IOrderRepository orderRepository)
             => (this.storeRepository, this.orderRepository) = (storeRepository, orderRepository);
@@ -82,15 +82,15 @@ namespace SportsStore.Controllers
 
         [HttpPost]
         [Route("Products/Create")]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product newProduct)
         {
             if (this.ModelState.IsValid)
             {
-                this.storeRepository.SaveProduct(product);
+                this.storeRepository.SaveProduct(newProduct);
                 return this.RedirectToAction("Products");
             }
 
-            return this.View(product);
+            return this.View(newProduct);
         }
 
         [Route("Products/Delete/{productId:long}")]

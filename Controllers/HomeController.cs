@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportsStore.Models.Repository;
 using SportsStore.Models.ViewModels;
 
 namespace SportsStore.Controllers
 {
     public class HomeController : Controller
     {
-        public int PageSize = 4;
+        private readonly int pageSize = 4;
         private readonly IStoreRepository repository;
 
         public HomeController(IStoreRepository repository)
@@ -24,8 +25,8 @@ namespace SportsStore.Controllers
             var productsQuery = this.repository.Products
                 .Where(p => category == null || p.Category == category)
                 .OrderBy(p => p.ProductId)
-                .Skip((productPage - 1) * this.PageSize)
-                .Take(this.PageSize);
+                .Skip((productPage - 1) * this.pageSize)
+                .Take(this.pageSize);
 
             var totalItems = category == null
                 ? this.repository.Products.Count()
@@ -37,7 +38,7 @@ namespace SportsStore.Controllers
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
-                    ItemsPerPage = this.PageSize,
+                    ItemsPerPage = this.pageSize,
                     TotalItems = totalItems,
                 },
                 CurrentCategory = category,

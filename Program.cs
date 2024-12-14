@@ -13,19 +13,11 @@ builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddScoped<Cart>(SessionCart.GetCart);
-
-// builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-// builder.Services.AddDbContext<StoreDbContext>(opts =>
-// {
-//    opts.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]);
-// });
 builder.Services.AddDbContext<StoreDbContext>(opts =>
 {
     opts.UseSqlServer("Data Source=(localdb)\\ProjectModels;Initial Catalog=SportsStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 });
 
-// builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
     options.UseSqlServer("Data Source=(localdb)\\ProjectModels;Initial Catalog=Identity;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 
@@ -87,5 +79,5 @@ app.MapControllerRoute(
 app.MapDefaultControllerRoute();
 
 SeedData.EnsurePopulated(app);
-IdentitySeedData.EnsurePopulated(app);
+await IdentitySeedData.EnsurePopulated(app);
 app.Run();

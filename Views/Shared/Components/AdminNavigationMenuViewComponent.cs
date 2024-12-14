@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SportsStore.Components
+namespace SportsStore.Views.Shared.Components
 {
     public class AdminNavigationMenuViewComponent : ViewComponent
     {

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportsStore.Models.Repository;
 
 namespace SportsStore.Components
 {
   public class NavigationMenuViewComponent : ViewComponent
     {
-       private IStoreRepository repository;
+       private readonly IStoreRepository repository;
 
        public NavigationMenuViewComponent(IStoreRepository repository)
         {

@@ -6,9 +6,8 @@ namespace SportsStore.Controllers
 {
     public class OrderController : Controller
     {
-        private IOrderRepository orderRepository;
-
-        private Cart cart;
+        private readonly IOrderRepository orderRepository;
+        private readonly Cart cart;
 
         public OrderController(IOrderRepository orderRepository, Cart cart)
         {
@@ -21,6 +20,11 @@ namespace SportsStore.Controllers
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
+            if(order == null)
+            {
+                throw new ArgumentNullException(nameof(order));
+            }
+
             if (!this.cart.Lines.Any())
             {
                 this.ModelState.AddModelError(key: string.Empty, errorMessage: "Sorry, your cart is empty!");
