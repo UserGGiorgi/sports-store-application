@@ -14,7 +14,7 @@ namespace SportsStore.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-            ArgumentNullException.ThrowIfNull(modelBuilder, nameof(modelBuilder));
+            ArgumentNullException.ThrowIfNull(modelBuilder);
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.0")
